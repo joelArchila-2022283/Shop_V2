@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios - MiSistema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloUsuarios.css}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">MiSistema v1.0</div>
+    <div class="user-info">
+        <span>Bienvenido, <strong>Administrador</strong></span>
+        <a th:href="@{/index}" class="btn-logout">Volver</a>
+    </div>
+</header>
+
+<main class="container">
+    <div class="view-header">
+        <h1>👤 Control de Usuarios</h1>
+        <button class="btn-nuevo" type="button">+ Nuevo Usuario</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Nombre Real</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th style="text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>admin</td>
+                    <td>Joel Archila</td>
+                    <td><span class="role-badge badge-admin">Administrador</span></td>
+                    <td><span class="status-pill status-active">Activo</span></td>
+                    <td class="actions-cell">
+                        <span class="action-icon">✏️</span>
+                        <span class="action-icon">🗑️</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>vendedor01</td>
+                    <td>Ana Martínez</td>
+                    <td><span class="role-badge badge-user">Vendedor</span></td>
+                    <td><span class="status-pill status-active">Activo</span></td>
+                    <td class="actions-cell">
+                        <span class="action-icon">✏️</span>
+                        <span class="action-icon">🗑️</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>
