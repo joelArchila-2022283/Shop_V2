@@ -18,14 +18,13 @@
             </div>
 
             <nav class="menu">
-                <a href="#" class="active">🏠 Dashboard</a>
-                <a href="#">👤 Usuarios</a>
-                <a href="#">👥 Clientes</a>
-                <a href="#">🛍️ Productos</a>
-                <a href="#">🛒 Ventas</a>
-                <a href="#">📊 Detalles de Ventas</a>
+                <a th:href="@{/home}" class="active">🏠 Dashboard</a>
+                <a th:href="@{/usuarios}">👤 Usuarios</a>
+                <a th:href="@{/clientes}">👥 Clientes</a>
+                <a th:href="@{/productos}">🛍️ Productos</a>
+                <a th:href="@{/ventas}">🛒 Ventas</a>
                 <hr>
-                <a th:href="@{/login}" href="loginShop.html" class="logout">🚪 Cerrar Sesión</a>
+                <a th:href="@{/login}" class="logout">🚪 Cerrar Sesión</a>
             </nav>
         </aside>
 
