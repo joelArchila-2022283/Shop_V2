@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Panel de Tienda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloIndex.css}">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="avatar">JA</div>
+                <h3>Joel Archila</h3>
+                <p>Admin de Tienda</p>
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="active">🏠 Dashboard</a>
+                <a href="#">👤 Usuarios</a>
+                <a href="#">👥 Clientes</a>
+                <a href="#">🛍️ Productos</a>
+                <a href="#">🛒 Ventas</a>
+                <a href="#">📊 Detalles de Ventas</a>
+                <hr>
+                <a th:href="@{/login}" href="loginShop.html" class="logout">🚪 Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="content-header">
+                <h1>Panel Principal</h1>
+                <p>Bienvenido al sistema de gestión de tu tienda básica.</p>
+            </header>
+
+            <section class="grid-container">
+                <div class="card">
+                    <span class="card-icon">🛒</span>
+                    <h4>Productos</h4>
+                    <p>Agregar, editar y eliminar artículos del catálogo.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📈</span>
+                    <h4>Ventas</h4>
+                    <p>Monitorea las transacciones del día en tiempo real.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📂</span>
+                    <h4>Categorías</h4>
+                    <p>Organiza tus productos por tipo o marca.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚙️</span>
+                    <h4>Configuración</h4>
+                    <p>Ajustes generales del perfil y del sistema.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div style="text-align: right; padding: 10px;">
+        <a th:href="@{/logout}"
+           style="background-color: #556B2F; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Cerrar Sesión
+        </a>
+    </div>
+</body>
+</html>

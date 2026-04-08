@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloLogin.css}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2> <form th:action="@{/login}" method="post">
+
+            <div class="input-group">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
+
+            <p th:if="${error}" th:text="${error}" style="color: #ffb3b3; font-size: 13px; margin-bottom: 15px;"></p>
+
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <div class="footer-text">
+            2026 Sistema de Tienda
+        </div>
+    </div>
+</body>
+</html>

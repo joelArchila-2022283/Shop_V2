@@ -1,0 +1,104 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            /* Degradado más elegante y profundo */
+            background: linear-gradient(135deg, #2c3e50, #556B2F);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.08); /* Un poco más sutil */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* Compatibilidad Safari */
+            padding: 50px 40px;
+            border-radius: 25px;
+            width: 360px;
+            /* Borde fino para resaltar el efecto cristal */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            text-align: center;
+            color: white;
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Color del placeholder en blanco suave */
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #556B2F; /* Color del texto a juego con el fondo */
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px); /* Pequeño salto al pasar el mouse */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .footer-text {
+            margin-top: 25px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .footer-text a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
