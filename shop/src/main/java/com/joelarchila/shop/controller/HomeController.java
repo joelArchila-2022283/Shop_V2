@@ -21,4 +21,12 @@ public class HomeController {
         return "productos"; // Debe coincidir con productos.html
     }
 
+    @GetMapping("/ventas")
+    public String ventas(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/loginShop";
+        }
+        return "ventas";
+    }
+
 }
