@@ -1,0 +1,96 @@
+/* Base y Reseteo */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #556B2F);
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-logout {
+    text-decoration: none;
+    background: #556B2F;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Contenedor */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.info-factura span {
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
+
+/* Sección de Cliente */
+.cliente-resumen {
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 30px;
+}
+
+/* Tabla */
+.table-container { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+
+th {
+    text-align: left;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Pie de Tabla (Totales) */
+tfoot td {
+    padding: 20px 15px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.final-total {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #81c784;
+}
