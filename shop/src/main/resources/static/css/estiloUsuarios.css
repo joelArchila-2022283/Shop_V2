@@ -1,0 +1,84 @@
+/* Base y Reseteo */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #556B2F);
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-logout {
+    text-decoration: none;
+    background: #556B2F;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Contenedor */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-nuevo {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Tabla */
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 15px; background: rgba(255, 255, 255, 0.05); font-size: 0.85rem; text-transform: uppercase; }
+td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* Badges de Rol */
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.badge-admin { background: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.3); }
+.badge-user { background: rgba(255, 255, 255, 0.1); color: white; }
+
+/* Estados */
+.status-pill { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; }
+.status-active { background: rgba(76, 175, 80, 0.2); color: #81c784; }
+
+/* Acciones */
+.actions-cell { text-align: center; }
+.action-icon { cursor: pointer; margin: 0 8px; display: inline-block; transition: 0.2s; }
+.action-icon:hover { transform: scale(1.3); }
