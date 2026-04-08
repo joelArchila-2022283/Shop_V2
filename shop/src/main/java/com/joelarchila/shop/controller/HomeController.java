@@ -37,4 +37,12 @@ public class HomeController {
         return "detalleVentas";
     }
 
+    @GetMapping("/usuarios")
+    public String usuarios(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/loginShop";
+        }
+        return "usuarios";
+    }
+
 }
