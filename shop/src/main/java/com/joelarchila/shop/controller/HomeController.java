@@ -1,5 +1,6 @@
 package com.joelarchila.shop.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,5 +13,12 @@ public class HomeController {
         return "clientes";
     }
 
+    @GetMapping("/productos")
+    public String productos(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/loginShop";
+        }
+        return "productos"; // Debe coincidir con productos.html
+    }
 
 }
