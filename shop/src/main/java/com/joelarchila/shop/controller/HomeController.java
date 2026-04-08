@@ -29,4 +29,12 @@ public class HomeController {
         return "ventas";
     }
 
+    @GetMapping("/detalle-ventas")
+    public String detalleVentas(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/loginShop";
+        }
+        return "detalleVentas";
+    }
+
 }
