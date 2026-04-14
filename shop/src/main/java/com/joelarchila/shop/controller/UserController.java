@@ -38,7 +38,7 @@ public class UserController {
         if (userFound != null) {
             // Guardamos el OBJETO completo o al menos el USERNAME y el ROL
             session.setAttribute("usuarioLogueado", userFound.getUsername());
-            session.setAttribute("rol", userFound.getRol()); // ¡IMPORTANTE PARA LA DISTINCIÓN!
+            session.setAttribute("rol", userFound.getRol()); 
 
             return "redirect:/index";
         } else {
