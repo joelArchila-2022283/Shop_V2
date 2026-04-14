@@ -1,6 +1,9 @@
 package com.joelarchila.shop.controller;
 
+import com.joelarchila.shop.entity.Usuario;
+import com.joelarchila.shop.service.LoginService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,21 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    // Redirección inicial
+    @Autowired
+    private LoginService loginService; // Inyectamos tu lógica de DB
 
     @GetMapping("/")
     public String inicio() {
         return "redirect:/loginShop";
     }
 
-    // Muestra la vista del Login
-
     @GetMapping("/loginShop")
     public String mostrarLogin() {
         return "loginShop";
     }
-
-    // Procesa el formulario de Login: Verifica las credenciales y maneja la sesión del usuario.
 
     @PostMapping("/login")
     public String login(@RequestParam String usuario,
@@ -32,39 +32,55 @@ public class UserController {
                         HttpSession session,
                         Model model) {
 
-        // Credenciales de acceso
-        String userCorrecto = "admin";
-        String passCorrecto = "1234";
+        // BUSCAMOS EN LA BASE DE DATOS USANDO EL SERVICIO
+        Usuario userFound = loginService.login(usuario, password);
 
-        if (userCorrecto.equals(usuario) && passCorrecto.equals(password)) {
-            // Guardamos el usuario en la sesión para proteger otras rutas
-            session.setAttribute("usuarioLogueado", usuario);
-            // Redirigimos a la RUTA
+        if (userFound != null) {
+            // Guardamos el OBJETO completo o al menos el USERNAME y el ROL
+            session.setAttribute("usuarioLogueado", userFound.getUsername());
+            session.setAttribute("rol", userFound.getRol()); // ¡IMPORTANTE PARA LA DISTINCIÓN!
+
             return "redirect:/index";
         } else {
-            // Si falla, mandamos un mensaje de error al HTML
             model.addAttribute("error", "Usuario o contraseña incorrectos");
             return "loginShop";
         }
     }
 
-    //Muestra la Home (index.html): Esta ruta está protegida. Si no hay sesión, rebota al login.
-
     @GetMapping("/index")
     public String mostrarIndex(HttpSession session) {
-        // Validamos si el objeto existe en la sesión
         if (session.getAttribute("usuarioLogueado") == null) {
             return "redirect:/loginShop";
         }
-        // Si todo está bien
         return "index";
     }
 
-    // Cerrar Sesión:Limpia la sesión y regresa al login.
+    @GetMapping("/registroShop")
+    public String mostrarRegistro() {
+        return "registroShop";
+    }
+
+    @PostMapping("/registrar")
+    public String registrarUsuario(@RequestParam String usuario,
+                                   @RequestParam String password,
+                                   @RequestParam String email,
+                                   Model model) {
+
+        // Usamos el servicio que ya tienes configurado
+        Usuario nuevo = loginService.registrar(usuario, password);
+
+        if (nuevo != null) {
+            model.addAttribute("exito", "¡Usuario creado! Ya puedes iniciar sesión");
+            return "loginShop"; // Lo mandamos al login
+        } else {
+            model.addAttribute("error", "El nombre de usuario ya está en uso");
+            return "registroShop";
+        }
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); // Destruye la sesión actual
+        session.invalidate();
         return "redirect:/loginShop";
     }
 }
