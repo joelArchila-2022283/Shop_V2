@@ -19,6 +19,26 @@ public class UsuarioServiceImplements implements UsuarioService{
     }
 
     @Override
+    public Usuario registrar(String usuario, String password) {
+        return null;
+    }
+
+    @Override
+    public Usuario login(String usuario, String password) {
+        return null;
+    }
+
+    @Override
+    public List<Usuario> listar() {
+        return List.of();
+    }
+
+    @Override
+    public void eliminar(int id) {
+
+    }
+
+    @Override
     public List<Usuario> getAllUsuarios() {
         return repository.findAll();
     }
