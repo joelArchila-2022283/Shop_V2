@@ -20,7 +20,7 @@
 <main class="container">
     <div class="view-header">
         <h1>Listado de Clientes</h1>
-        <button class="btn-nuevo" type="button">+ Nuevo Registro</button>
+        <a th:href="@{/clientes-gestion/nuevo}" class="btn-nuevo" style="text-decoration:none;">+ Nuevo Registro</a>
     </div>
 
     <div class="table-container">
@@ -35,36 +35,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>0000000</td>
-                    <td>Pedro Andres Garza</td>
-                    <td>Calle leal 21, Zona 2</td>
-                    <td><span class="status-pill status-active">Activo</span></td>
-                    <td class="actions-cell">
-                        <span class="action-icon">✏️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>00000000</td>
-                    <td>Juan Francisco Lopez</td>
-                    <td>Av. Las Américas 09-12</td>
-                    <td><span class="status-pill status-inactive">Inactivo</span></td>
-                    <td class="actions-cell">
-                        <span class="action-icon">✏️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>00000000</td>
-                    <td>Miguel Angel Rodriguez</td>
-                    <td>Residenciales JRB, Lote 9</td>
-                    <td><span class="status-pill status-active">Activo</span></td>
-                    <td class="actions-cell">
-                        <span class="action-icon">✏️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
+            <tr th:each="c : ${listaClientes}">
+                <td th:text="${c.dpiCliente}">0000000</td>
+                <td th:text="${c.nombreCliente} + ' ' + ${c.apellidoCliente}">Nombre Completo</td>
+                <td th:text="${c.direccion}">Dirección</td>
+                <td>
+            <span th:text="${c.estado == 1 ? 'Activo' : 'Inactivo'}"
+                  th:class="${c.estado == 1} ? 'status-pill status-active' : 'status-pill status-inactive'">
+                Estado
+            </span>
+                </td>
+                <td class="actions-cell">
+                    <a th:href="@{/clientes-gestion/editar/{id}(id=${c.dpiCliente})}" class="action-icon" style="text-decoration:none;">✏️</a>
+                    <a th:href="@{/clientes-gestion/eliminar/{id}(id=${c.dpiCliente})}"
+                       class="action-icon" style="text-decoration:none;"
+                       onclick="return confirm('¿Eliminar este cliente?')">🗑️</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
