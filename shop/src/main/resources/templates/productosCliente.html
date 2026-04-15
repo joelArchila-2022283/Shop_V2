@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr th:each="p : ${listaProductos}">
-                <td th:text="${p.nombre}">Nombre</td>
+                <td th:text="${p.nombreProducto}">Nombre</td>
                 <td th:text="'Q' + ${p.precio}">Precio</td>
                 <td th:text="${p.stock}">Stock</td>
                 <td>
