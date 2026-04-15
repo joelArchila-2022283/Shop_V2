@@ -48,14 +48,6 @@ public class HomeController {
         return "ventasCliente";
     }
 
-    @GetMapping("/usuarios")
-    public String usuarios(HttpSession session) {
-        if (!isAuthenticated(session) || !esAdmin(session)) {
-            return "redirect:/index";
-        }
-        return "usuarios";
-    }
-
     @GetMapping("/detalle-ventas")
     public String detalleVentas(HttpSession session) {
         if (!isAuthenticated(session) || !esAdmin(session)) {
