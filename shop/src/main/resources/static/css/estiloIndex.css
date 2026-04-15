@@ -6,7 +6,7 @@
         }
 
         body {
-            min-height: 200vh;
+            min-height: 120vh;
             /* Degradado Verde Oliva Profundo */
             background: linear-gradient(135deg, #2c3e50, #556B2F);
             display: flex;
@@ -19,7 +19,7 @@
         .main-wrapper {
             width: 100%;
             max-width: 1100px;
-            height: 200vh;
+            height: 120vh;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
