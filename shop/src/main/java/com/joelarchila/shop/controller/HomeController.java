@@ -24,16 +24,11 @@ public class HomeController {
 
         String rol = (String) session.getAttribute("rol");
 
-        if ("ADMIN".equals(rol)) {
-            // Aquí podrías cargar la lista de todos los clientes para el admin
-            // model.addAttribute("listaClientes", clienteService.getAll());
-            return "clientes";
+        if ("ADMIN".equalsIgnoreCase(rol)) {
+            return "redirect:/clientes-gestion"; // Redireccionamos al CRUD
         } else {
-            // LÓGICA PARA EL PERFIL DEL CLIENTE
-            // Pasamos el nombre del usuario logueado para que la vista tenga algo que mostrar
             model.addAttribute("nombreUsuario", session.getAttribute("usuarioLogueado"));
             model.addAttribute("rolUsuario", rol);
-
             return "perfilCliente";
         }
     }
