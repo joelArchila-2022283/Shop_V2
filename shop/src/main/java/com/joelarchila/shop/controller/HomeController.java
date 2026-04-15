@@ -2,83 +2,65 @@ package com.joelarchila.shop.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
-
-    // --- METODOS DE SEGURIDAD  ---
 
     private boolean isAuthenticated(HttpSession session) {
         return session.getAttribute("usuarioLogueado") != null;
     }
 
-    private boolean isAdmin(HttpSession session) {
+    private boolean esAdmin(HttpSession session) {
         String rol = (String) session.getAttribute("rol");
-        // Usamos equalsIgnoreCase por seguridad
-        return "ADMIN".equalsIgnoreCase(rol);
-    }
-
-    // --- RUTAS ADAPTATIVAS (Admin y Cliente) ---
-
-    @GetMapping("/productos")
-    public String productos(HttpSession session, Model model) {
-        if (!isAuthenticated(session)) {
-            return "redirect:/loginShop";
-        }
-
-        // Aqui es donde decide que vista devolver
-        if (isAdmin(session)) {
-            return "productos";        // (Admin)
-        } else {
-            return "productosCliente"; // (Cliente)
-        }
+        if (rol == null) return false;
+        return rol.equalsIgnoreCase("administrador") || rol.equalsIgnoreCase("ADMIN");
     }
 
     @GetMapping("/clientes")
-    public String clientes(HttpSession session) {
-        if (!isAuthenticated(session)) {
-            return "redirect:/loginShop";
-        }
+    public String clientes(HttpSession session, Model model) {
+        if (!isAuthenticated(session)) return "redirect:/loginShop";
 
-        if (isAdmin(session)) {
-            return "clientes";        // (Admin)
+        String rol = (String) session.getAttribute("rol");
+
+        if ("ADMIN".equals(rol)) {
+            // Aquí podrías cargar la lista de todos los clientes para el admin
+            // model.addAttribute("listaClientes", clienteService.getAll());
+            return "clientes";
         } else {
-            return "perfilCliente";   // (Cliente)
+            // LÓGICA PARA EL PERFIL DEL CLIENTE
+            // Pasamos el nombre del usuario logueado para que la vista tenga algo que mostrar
+            model.addAttribute("nombreUsuario", session.getAttribute("usuarioLogueado"));
+            model.addAttribute("rolUsuario", rol);
+
+            return "perfilCliente";
         }
     }
 
     @GetMapping("/ventas")
     public String ventas(HttpSession session) {
-        if (!isAuthenticated(session)) {
-            return "redirect:/loginShop";
-        }
+        if (!isAuthenticated(session)) return "redirect:/loginShop";
 
-        if (isAdmin(session)) {
-            return "ventas";        // (Admin)
-        } else {
-            return "ventasCliente"; // (Cliente)
+        if (esAdmin(session)) {
+            return "ventas";
         }
+        return "ventasCliente";
     }
-
-    // --- RUTAS EXCLUSIVAS (Admin) ---
 
     @GetMapping("/usuarios")
     public String usuarios(HttpSession session) {
-        if (!isAuthenticated(session)) return "redirect:/loginShop";
-
-        // Si un cliente intenta escribir /usuarios en la URL, lo manda al index
-        if (!isAdmin(session)) return "redirect:/index";
-
+        if (!isAuthenticated(session) || !esAdmin(session)) {
+            return "redirect:/index";
+        }
         return "usuarios";
     }
 
     @GetMapping("/detalle-ventas")
     public String detalleVentas(HttpSession session) {
-        if (!isAuthenticated(session)) return "redirect:/loginShop";
-        if (!isAdmin(session)) return "redirect:/index";
-
+        if (!isAuthenticated(session) || !esAdmin(session)) {
+            return "redirect:/index";
+        }
         return "detalleVentas";
     }
 }
