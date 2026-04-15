@@ -12,7 +12,7 @@
 <header class="navbar">
     <div class="logo">MiSistema v1.0</div>
     <div class="user-info">
-        <span>Bienvenido, <strong>Administrador</strong></span>
+        <span>Bienvenido, <strong th:text="${session.usuarioLogueado}">Administrador</strong></span>
         <a th:href="@{/index}" class="btn-logout">Volver</a>
     </div>
 </header>
@@ -20,44 +20,42 @@
 <main class="container">
     <div class="view-header">
         <h1>🛍️ Inventario de Productos</h1>
-        <button class="btn-nuevo" type="button">+ Nuevo Producto</button>
+        <a th:href="@{/productos/nuevo}" class="btn-nuevo" style="text-decoration: none;">+ Nuevo Producto</a>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th style="text-align: center;">Acciones</th>
-                </tr>
+            <tr>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>PROD-001</td>
-                    <td>Cereal de Avena 500g</td>
-                    <td>Abarrotes</td>
-                    <td>Q 35.00</td>
-                    <td><span class="status-pill status-active">45 Unidades</span></td>
-                    <td class="actions-cell">
-                        <span class="action-icon">✏️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>PROD-002</td>
-                    <td>Leche Entera 1L</td>
-                    <td>Lácteos</td>
-                    <td>Q 12.50</td>
-                    <td><span class="status-pill status-inactive">0 Unidades</span></td>
-                    <td class="actions-cell">
-                        <span class="action-icon">✏️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
+            <tr th:each="p : ${listaProductos}">
+                <td th:text="${p.codigoProducto}">ID</td>
+                <td th:text="${p.nombreProducto}">Nombre del Producto</td>
+                <td th:text="'Q ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">Precio</td>
+                <td>
+                        <span th:class="${p.stock > 0} ? 'status-pill status-active' : 'status-pill status-inactive'"
+                              th:text="${p.stock} + ' Unidades'">
+                            0 Unidades
+                        </span>
+                </td>
+                <td class="actions-cell">
+                    <a th:href="@{/productos/editar/{id}(id=${p.codigoProducto})}" class="action-icon" style="text-decoration: none;">✏️</a>
+
+                    <a th:href="@{/productos/eliminar/{id}(id=${p.codigoProducto})}"
+                       class="action-icon"
+                       style="text-decoration: none;"
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">
+                        🗑️
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
