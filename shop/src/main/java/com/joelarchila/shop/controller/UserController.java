@@ -31,7 +31,7 @@ public class UserController {
                         @RequestParam String password,
                         HttpSession session,
                         Model model) {
-        
+
         // Buscamos en la base de datos usando el service
         Usuario userFound = loginService.login(usuario, password);
 
