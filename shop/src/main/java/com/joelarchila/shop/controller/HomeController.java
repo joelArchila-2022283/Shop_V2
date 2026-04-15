@@ -2,35 +2,38 @@ package com.joelarchila.shop.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
-    /**
-     * Verifica si hay una sesión activa.
-     * Es un método utilitario para no repetir código.
-     */
+    // --- METODOS DE SEGURIDAD  ---
+
     private boolean isAuthenticated(HttpSession session) {
         return session.getAttribute("usuarioLogueado") != null;
     }
 
-    /**
-     * Verifica si el usuario tiene rol de ADMIN.
-     */
     private boolean isAdmin(HttpSession session) {
         String rol = (String) session.getAttribute("rol");
-        return "ADMIN".equals(rol);
+        // Usamos equalsIgnoreCase por seguridad
+        return "ADMIN".equalsIgnoreCase(rol);
     }
 
-    // --- RUTAS ACCESIBLES POR AMBOS (ADMIN Y CLIENTE) ---
+    // --- RUTAS ADAPTATIVAS (Admin y Cliente) ---
 
     @GetMapping("/productos")
-    public String productos(HttpSession session) {
+    public String productos(HttpSession session, Model model) {
         if (!isAuthenticated(session)) {
             return "redirect:/loginShop";
         }
-        return "productos";
+
+        // Aqui es donde decide que vista devolver
+        if (isAdmin(session)) {
+            return "productos";        // (Admin)
+        } else {
+            return "productosCliente"; // (Cliente)
+        }
     }
 
     @GetMapping("/clientes")
@@ -38,23 +41,12 @@ public class HomeController {
         if (!isAuthenticated(session)) {
             return "redirect:/loginShop";
         }
-        return "clientes";
-    }
 
-    // --- RUTAS PROTEGIDAS: SOLO PARA ADMIN ---
-
-    @GetMapping("/usuarios")
-    public String usuarios(HttpSession session) {
-        if (!isAuthenticated(session)) {
-            return "redirect:/loginShop";
+        if (isAdmin(session)) {
+            return "clientes";        // (Admin)
+        } else {
+            return "perfilCliente";   // (Cliente)
         }
-
-        if (!isAdmin(session)) {
-            // Si es un cliente normal, lo mandamos al index porque no tiene permiso
-            return "redirect:/index";
-        }
-
-        return "usuarios";
     }
 
     @GetMapping("/ventas")
@@ -63,22 +55,29 @@ public class HomeController {
             return "redirect:/loginShop";
         }
 
-        if (!isAdmin(session)) {
-            return "redirect:/index";
+        if (isAdmin(session)) {
+            return "ventas";        // (Admin)
+        } else {
+            return "ventasCliente"; // (Cliente)
         }
+    }
 
-        return "ventas";
+    // --- RUTAS EXCLUSIVAS (Admin) ---
+
+    @GetMapping("/usuarios")
+    public String usuarios(HttpSession session) {
+        if (!isAuthenticated(session)) return "redirect:/loginShop";
+
+        // Si un cliente intenta escribir /usuarios en la URL, lo manda al index
+        if (!isAdmin(session)) return "redirect:/index";
+
+        return "usuarios";
     }
 
     @GetMapping("/detalle-ventas")
     public String detalleVentas(HttpSession session) {
-        if (!isAuthenticated(session)) {
-            return "redirect:/loginShop";
-        }
-
-        if (!isAdmin(session)) {
-            return "redirect:/index";
-        }
+        if (!isAuthenticated(session)) return "redirect:/loginShop";
+        if (!isAdmin(session)) return "redirect:/index";
 
         return "detalleVentas";
     }
