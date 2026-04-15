@@ -284,13 +284,13 @@ call sp_agregar_cliente('sonia', 'paiz', 'alta verapaz', 1);
 call sp_agregar_usuario('gcalderon', 'pass123', 'gabriel.calderon@shop.com', 'administrador', 1);
 call sp_agregar_usuario('jarchila', 'admin789', 'joel.archila@shop.com', 'administrador', 1);
 call sp_agregar_usuario('ecallejas', 'segura01', 'efrain.callejas@shop.com', 'administrador', 1);
-call sp_agregar_usuario('mromero', 'caja2026', 'marta.romero@shop.com', 'cajero', 1);
-call sp_agregar_usuario('lvasquez', 'ventas15', 'luis.vasquez@shop.com', 'vendedor', 1);
-call sp_agregar_usuario('asolorzano', 'clavereal', 'ana.solorzano@shop.com', 'cajero', 1);
-call sp_agregar_usuario('rgramajo', 'roberto44', 'roberto.gramajo@shop.com', 'vendedor', 1);
-call sp_agregar_usuario('kmonzon', 'p@ssword', 'karla.monzon@shop.com', 'cajero', 1);
-call sp_agregar_usuario('fvillatoro', 'fher2026', 'fernando.villatoro@shop.com', 'vendedor', 1);
-call sp_agregar_usuario('dortiz', 'diego99', 'diego.ortiz@shop.com', 'vendedor', 1);
+call sp_agregar_usuario('mromero', 'caja2026', 'marta.romero@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('lvasquez', 'ventas15', 'luis.vasquez@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('asolorzano', 'clavereal', 'ana.solorzano@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('rgramajo', 'roberto44', 'roberto.gramajo@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('kmonzon', 'p@ssword', 'karla.monzon@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('fvillatoro', 'fher2026', 'fernando.villatoro@shop.com', 'CLIENTE', 1);
+call sp_agregar_usuario('dortiz', 'diego99', 'diego.ortiz@shop.com', 'CLIENTE', 1);
 
 -- productos
 call sp_agregar_producto('leche entera 1l', 12.50, 50, 1);
