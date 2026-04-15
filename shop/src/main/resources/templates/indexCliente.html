@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Tienda | Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/estiloIndex.css}">
+</head>
+<body>
+<div class="main-wrapper">
+  <aside class="sidebar">
+    <div class="profile-section">
+      <div class="avatar-container">
+        <img th:src="@{/img/default.png}" alt="Cliente"
+             style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #556B2F; object-fit: cover;">
+      </div>
+      <h3 th:text="${session.usuarioLogueado}">Cliente</h3>
+      <p>Cliente Distinguido</p>
+    </div>
+
+    <nav class="menu">
+      <a th:href="@{/index}" class="active">🏠 Inicio</a>
+      <a th:href="@{/productos}">🛍️ Catálogo de Productos</a>
+      <a th:href="@{/ventas}">📦 Mis Compras</a>
+      <a th:href="@{/clientes}">👤 Mi Cuenta</a>
+      <hr>
+      <a th:href="@{/logout}">🚪 Cerrar Sesion</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <header class="content-header">
+      <h1>Bienvenido a la Tienda</h1>
+      <p>Explora nuestro catálogo y revisa el estado de tus pedidos.</p>
+    </header>
+
+    <section class="grid-container">
+      <div class="card" onclick="window.location.href='/productos'">
+        <span class="card-icon">🛍️</span>
+        <h4>Ver Catálogo</h4>
+        <p>Encuentra los mejores productos al mejor precio.</p>
+      </div>
+      <div class="card" onclick="window.location.href='/ventas'">
+        <span class="card-icon">📦</span>
+        <h4>Mis Pedidos</h4>
+        <p>Consulta el historial de tus compras anteriores.</p>
+      </div>
+      <div class="card" onclick="window.location.href='/usuarios'">
+        <span class="card-icon">👤</span>
+        <h4>Mis Datos</h4>
+        <p>Actualiza tu información de contacto y contraseña.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
