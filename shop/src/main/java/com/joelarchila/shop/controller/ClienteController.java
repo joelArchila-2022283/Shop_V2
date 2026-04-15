@@ -1,17 +1,14 @@
 package com.joelarchila.shop.controller;
 
-
 import com.joelarchila.shop.entity.Cliente;
 import com.joelarchila.shop.service.ClienteService;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/clientes")
+@Controller
+@RequestMapping("/clientes-gestion")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -20,47 +17,45 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+    // LISTAR CLIENTES
     @GetMapping
-    public List<Cliente> getAllClientes() {
-        return clienteService.getAllClientes();
+    public String listar(Model model, HttpSession session) {
+        String rol = (String) session.getAttribute("rol");
+        if (session.getAttribute("usuarioLogueado") == null || !"ADMIN".equalsIgnoreCase(rol)) {
+            return "redirect:/loginShop";
+        }
+        model.addAttribute("listaClientes", clienteService.getAllClientes());
+        return "clientes";
     }
 
-    @PostMapping
-    public ResponseEntity<Object> createCliente(@Valid @RequestBody Cliente cliente) {
-        if (cliente.getNombreCliente() == null || cliente.getNombreCliente().trim().isEmpty()) {
-            return new ResponseEntity<>("Error: El nombre es obligatorio.", HttpStatus.BAD_REQUEST);
-        }
-
-        try {
-            Cliente created = clienteService.saveCliente(cliente);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    // NUEVO
+    @GetMapping("/nuevo")
+    public String formularioNuevo(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        model.addAttribute("titulo", "Nuevo Cliente");
+        return "formCliente"; // Debes crear este HTML
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
-        if (id <= 0) return new ResponseEntity<>("Error: ID inválido.", HttpStatus.BAD_REQUEST);
-
-        Cliente actualizado = clienteService.updateCliente(id, cliente);
-        if (actualizado != null) {
-            return new ResponseEntity<>(actualizado, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Cliente no encontrado.", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCliente(@PathVariable Integer id) {
-        if (id <= 0) return new ResponseEntity<>("Error: ID inválido.", HttpStatus.BAD_REQUEST);
-
+    // EDITAR
+    @GetMapping("/editar/{id}")
+    public String formularioEditar(@PathVariable Integer id, Model model) {
         Cliente cliente = clienteService.getClienteById(id);
-        if (cliente != null) {
-            clienteService.deleteCliente(id);
-            return new ResponseEntity<>("Cliente eliminado con éxito", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se encontró el cliente", HttpStatus.NOT_FOUND);
-        }
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("titulo", "Editar Cliente");
+        return "formCliente";
+    }
+
+    // GUARDAR
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute Cliente cliente) {
+        clienteService.saveCliente(cliente);
+        return "redirect:/clientes-gestion";
+    }
+
+    // ELIMINAR
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Integer id) {
+        clienteService.deleteCliente(id);
+        return "redirect:/clientes-gestion";
     }
 }
