@@ -1,0 +1,71 @@
+/* Importamos la fuente para mantener consistencia */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #556B2F);
+    color: white;
+    padding: 20px;
+}
+
+/* Contenedor tipo Vidrio */
+.container {
+    max-width: 1150px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.view-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+/* Tabla Estilizada */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Estados de Stock */
+.status-pill {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-active { background: rgba(76, 175, 80, 0.2); color: #81c784; }
+.status-inactive { background: rgba(244, 67, 54, 0.2); color: #e57373; }
+
+/* Botón de Comprar */
+.btn-comprar {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-comprar:hover { background-color: #6b8441; transform: scale(1.05); }
