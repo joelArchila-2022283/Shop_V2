@@ -2,15 +2,15 @@ package com.joelarchila.shop.controller;
 
 import com.joelarchila.shop.entity.Usuario;
 import com.joelarchila.shop.service.UsuarioService;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/usuarios")
+@Controller
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -19,52 +19,60 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    private boolean esAdmin(HttpSession session) {
+        String rol = (String) session.getAttribute("rol");
+        return "ADMIN".equalsIgnoreCase(rol);
+    }
+
+    // LISTAR
     @GetMapping
-    public List<Usuario> getAllUsuarios() {
-        return usuarioService.getAllUsuarios();
+    public String getAllUsuarios(Model model, HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null || !esAdmin(session)) {
+            return "redirect:/loginShop";
+        }
+        List<Usuario> lista = usuarioService.getAllUsuarios();
+        model.addAttribute("listaUsuarios", lista);
+        return "usuarios";
     }
 
-    @PostMapping
-    public ResponseEntity<Object> createUsuario(@Valid @RequestBody Usuario usuario) {
-        if (usuario.getUsername() == null || usuario.getUsername().trim().isEmpty()) {
-            return new ResponseEntity<>("Error: El username es obligatorio.", HttpStatus.BAD_REQUEST);
-        }
-        if (usuario.getPassword() == null || usuario.getPassword().trim().isEmpty()) {
-            return new ResponseEntity<>("Error: La contraseña es obligatoria.", HttpStatus.BAD_REQUEST);
-        }
+    // AGREGAR
+    @GetMapping("/nuevo")
+    public String mostrarFormularioNuevo(Model model, HttpSession session) {
+        if (!esAdmin(session)) return "redirect:/usuarios";
 
-        try {
-            Usuario created = usuarioService.saveUsuario(usuario);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al crear usuario: " + e.getMessage());
-        }
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setEstado(1);
+        model.addAttribute("usuario", nuevoUsuario);
+        model.addAttribute("titulo", "Nuevo Usuario");
+        return "formUsuario";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
-        if (id <= 0) {
-            return new ResponseEntity<>("Error: El ID debe ser positivo.", HttpStatus.BAD_REQUEST);
-        }
-
-        Usuario actualizado = usuarioService.updateUsuario(id, usuario);
-        if (actualizado != null) {
-            return new ResponseEntity<>(actualizado, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se encontró el usuario con ID: " + id, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUsuario(@PathVariable Integer id) {
-        if (id <= 0) return new ResponseEntity<>("Error: ID inválido.", HttpStatus.BAD_REQUEST);
+    // EDITAR
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Integer id, Model model, HttpSession session) {
+        if (!esAdmin(session)) return "redirect:/usuarios";
 
         Usuario usuario = usuarioService.getUsuarioById(id);
-        if (usuario != null) {
-            usuarioService.deleteUsuario(id);
-            return new ResponseEntity<>("Usuario eliminado con éxito", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se encontró el usuario ID: " + id, HttpStatus.NOT_FOUND);
-        }
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("titulo", "Editar Usuario");
+        return "formUsuario";
+    }
+
+    // GUARDAR / ACTUALIZAR
+    @PostMapping("/guardar")
+    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
+        if (!esAdmin(session)) return "redirect:/usuarios";
+
+        usuarioService.saveUsuario(usuario);
+        return "redirect:/usuarios";
+    }
+
+    // ELIMINAR
+    @GetMapping("/eliminar/{id}")
+    public String deleteUsuario(@PathVariable Integer id, HttpSession session) {
+        if (!esAdmin(session)) return "redirect:/usuarios";
+
+        usuarioService.deleteUsuario(id);
+        return "redirect:/usuarios";
     }
 }
