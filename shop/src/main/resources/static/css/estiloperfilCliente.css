@@ -1,0 +1,104 @@
+/* Importar fuente */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #556B2F);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.perfil-card {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 50px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.view-header {
+    margin-bottom: 35px;
+}
+
+.view-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.badge-rol {
+    background: #556B2F;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Bloques de Información */
+.info-group {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.info-group:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.info-group label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #81c784;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.info-group p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: white;
+}
+
+/* Botón de Regreso */
+.btn-regresar {
+    margin-top: 30px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+}
+
+.btn-regresar:hover {
+    opacity: 1;
+    border-bottom: 1px solid white;
+}
