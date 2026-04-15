@@ -12,27 +12,26 @@
   <aside class="sidebar">
     <div class="profile-section">
       <div class="avatar-container">
-        <img th:src="@{/img/default.png}" alt="Cliente"
-             style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #556B2F; object-fit: cover;">
+        <img th:src="@{'/img/' + ${session.fotoPerfil}}" alt="Cliente" class="avatar">
       </div>
       <h3 th:text="${session.usuarioLogueado}">Cliente</h3>
-      <p>Cliente Distinguido</p>
+      <p th:text="${session.rol}">Rol</p>
     </div>
 
     <nav class="menu">
       <a th:href="@{/index}" class="active">🏠 Inicio</a>
       <a th:href="@{/productos}">🛍️ Catálogo de Productos</a>
       <a th:href="@{/ventas}">📦 Mis Compras</a>
-      <a th:href="@{/clientes}">👤 Mi Cuenta</a>
+      <a th:href="@{/usuarios}">👤 Mi Cuenta</a>
       <hr>
-      <a th:href="@{/logout}">🚪 Cerrar Sesion</a>
+      <a th:href="@{/logout}" class="logout">🚪 Cerrar Sesión</a>
     </nav>
   </aside>
 
   <main class="content">
     <header class="content-header">
       <h1>Bienvenido a la Tienda</h1>
-      <p>Explora nuestro catálogo y revisa el estado de tus pedidos.</p>
+      <p>Hola <span th:text="${session.usuarioLogueado}"></span>, explora nuestro catálogo.</p>
     </header>
 
     <section class="grid-container">
