@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo | Tienda Click</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloproductosCliente.css}">
+</head>
+<body>
+<div class="container">
+    <header class="view-header">
+        <h1>Catálogo de Productos</h1>
+        <p>Bienvenido, <span th:text="${session.usuarioLogueado}"></span>. Selecciona tus artículos.</p>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Existencias</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${listaProductos}">
+                <td th:text="${p.nombre}">Nombre</td>
+                <td th:text="'Q' + ${p.precio}">Precio</td>
+                <td th:text="${p.stock}">Stock</td>
+                <td>
+                    <span th:class="${p.stock > 0} ? 'status-pill status-active' : 'status-pill status-inactive'"
+                          th:text="${p.stock > 0} ? 'Disponible' : 'Agotado'">
+                    </span>
+                </td>
+                <td>
+                    <button class="btn-comprar" th:if="${p.stock > 0}">
+                        🛒 Añadir
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <a th:href="@{/index}" class="btn-comprar" style="text-decoration: none; display: inline-block;">Volver al Inicio</a>
+</div>
+</body>
+</html>
