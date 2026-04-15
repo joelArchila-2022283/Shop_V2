@@ -31,12 +31,12 @@ public class UserController {
                         @RequestParam String password,
                         HttpSession session,
                         Model model) {
-
-        // BUSCAMOS EN LA BASE DE DATOS USANDO EL SERVICIO
+        
+        // Buscamos en la base de datos usando el service
         Usuario userFound = loginService.login(usuario, password);
 
         if (userFound != null) {
-            // Guardamos el OBJETO completo o al menos el USERNAME y el ROL
+            // Guardamos el objeto completo o al menos el username y el rol
             session.setAttribute("usuarioLogueado", userFound.getUsername());
             session.setAttribute("rol", userFound.getRol()); 
 
@@ -49,10 +49,20 @@ public class UserController {
 
     @GetMapping("/index")
     public String mostrarIndex(HttpSession session) {
-        if (session.getAttribute("usuarioLogueado") == null) {
+        String username = (String) session.getAttribute("usuarioLogueado");
+        String rol = (String) session.getAttribute("rol");
+
+        // Si no hay sesión, al login
+        if (username == null) {
             return "redirect:/loginShop";
         }
-        return "index";
+
+        // Decisión de Vista
+        if ("ADMIN".equals(rol)) {
+            return "index"; // Admin
+        } else {
+            return "indexCliente"; // Cliente
+        }
     }
 
     @GetMapping("/registroShop")
@@ -66,12 +76,12 @@ public class UserController {
                                    @RequestParam String email,
                                    Model model) {
 
-        // Usamos el servicio que ya tienes configurado
+        // Usamos el servicio que ya esta configurado
         Usuario nuevo = loginService.registrar(usuario, password);
 
         if (nuevo != null) {
             model.addAttribute("exito", "¡Usuario creado! Ya puedes iniciar sesión");
-            return "loginShop"; // Lo mandamos al login
+            return "loginShop";
         } else {
             model.addAttribute("error", "El nombre de usuario ya está en uso");
             return "registroShop";
