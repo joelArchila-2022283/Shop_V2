@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario de Usuario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloFormUsuario.css}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2 th:text="${titulo}">Gestión de Usuario</h2>
+    <hr class="separator">
+
+    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+        <input type="hidden" th:field="*{codigoUsuario}">
+
+        <div class="form-group">
+            <label>Nombre de Usuario</label>
+            <input type="text" th:field="*{username}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" th:field="*{password}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rol del Sistema</label>
+            <select th:field="*{rol}">
+                <option value="ADMIN">Administrador</option>
+                <option value="CLIENTE">Cliente / Personal</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Estado</label>
+            <select th:field="*{estado}">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-save">Guardar Cambios</button>
+        <a th:href="@{/usuarios}" class="btn-cancel">Cancelar y volver</a>
+    </form>
+</div>
+
+</body>
+</html>
