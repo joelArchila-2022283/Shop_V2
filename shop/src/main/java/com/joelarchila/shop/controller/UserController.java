@@ -38,7 +38,14 @@ public class UserController {
         if (userFound != null) {
             // Guardamos el objeto completo o al menos el username y el rol
             session.setAttribute("usuarioLogueado", userFound.getUsername());
-            session.setAttribute("rol", userFound.getRol()); 
+            session.setAttribute("rol", userFound.getRol());
+
+            // --- Logica de Foto de Perfil Automática ---
+            if ("ADMIN".equalsIgnoreCase(userFound.getRol())) {
+                session.setAttribute("fotoPerfil", "admin-foto.png");
+            } else {
+                session.setAttribute("fotoPerfil", "default-user.png");
+            }
 
             return "redirect:/index";
         } else {
