@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Compras | Tienda Click</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/estiloventasCliente.css}">
+</head>
+<body>
+<div class="container-ventas">
+  <header class="view-header">
+    <h1>Historial de Compras</h1>
+    <p>Revisa el detalle de tus pedidos realizados.</p>
+  </header>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Factura</th>
+      <th>Fecha</th>
+      <th>Total</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="v : ${misVentas}" class="venta-row">
+      <td th:text="'#' + ${v.codigoVenta}">ID</td>
+      <td th:text="${v.fecha}">Fecha</td>
+      <td class="total-highlight" th:text="'Q' + ${v.total}">Total</td>
+      <td>
+        <a th:href="@{/detalle-ventas(id=${v.codigoVenta})}" class="btn-detalle">Ver Detalle</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <a th:href="@{/index}" class="btn-detalle" style="display: inline-block; text-align: center;">Regresar</a>
+</div>
+</body>
+</html>
