@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${detalle.codigoDetalleVenta != null} ? 'Editar Detalle' : 'Nuevo Detalle'">Detalle de Venta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estiloFormDetalleVentas.css}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2 th:text="${detalle.codigoDetalleVenta != null} ? 'Editar Producto en Venta' : 'Agregar Producto a Venta'">Detalle</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 20px;">Factura #<span th:text="${idVenta}"></span></p>
+    <hr class="separator">
+
+    <form th:action="@{/detalles/guardar}" th:object="${detalle}" method="post">
+        <input type="hidden" th:field="*{codigoDetalleVenta}">
+
+        <input type="hidden" name="ventaId" th:value="${idVenta}">
+
+        <div class="form-group">
+            <label>Seleccionar Producto</label>
+            <select name="productoId" required>
+                <option value="" disabled selected>--- Seleccione un producto ---</option>
+                <option th:each="p : ${listaProductos}"
+                        th:value="${p.codigoProducto}"
+                        th:text="${p.nombre_producto} + ' - Q' + ${p.precio}">
+                </option>
+            </select>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
