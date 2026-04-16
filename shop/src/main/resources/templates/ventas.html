@@ -20,7 +20,7 @@
 <main class="container">
     <div class="view-header">
         <h1>🛒 Historial de Ventas</h1>
-        <button class="btn-nuevo" type="button">+ Nueva Venta</button>
+        <a th:href="@{/ventas/nuevo}" class="btn-nuevo">+ Nueva Venta</a>
     </div>
 
     <div class="table-container">
@@ -36,28 +36,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>#FAC-001</td>
-                    <td>08/04/2026</td>
-                    <td>Alberto Calderon</td>
-                    <td class="total-amount">Q 150.00</td>
-                    <td>Efectivo</td>
-                    <td class="actions-cell">
-                        <span class="action-icon">👁️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>#FAC-002</td>
-                    <td>08/04/2026</td>
-                    <td>María López</td>
-                    <td class="total-amount">Q 1,200.50</td>
-                    <td>Tarjeta</td>
-                    <td class="actions-cell">
-                        <span class="action-icon">👁️</span>
-                        <span class="action-icon">🗑️</span>
-                    </td>
-                </tr>
+            <tr th:each="v : ${listaVentas}">
+                <td th:text="'#FAC-' + ${v.codigoVenta}">#FAC-000</td>
+                <td th:text="${v.fechaVenta}">Fecha</td>
+                <td th:text="${v.cliente != null ? v.cliente.nombreCliente : 'S/N'}">Cliente</td>
+                <td class="total-amount" th:text="'Q ' + ${v.total}">Q 0.00</td>
+                <td>Efectivo</td> <td class="actions-cell">
+                <a th:href="@{/detalle-ventas/lista/{id}(id=${v.codigoVenta})}" class="action-icon">👁️</a>
+                <a th:href="@{/ventas/eliminar/{id}(id=${v.codigoVenta})}"
+                   class="action-icon"
+                   onclick="return confirm('¿Eliminar esta venta?')">🗑️</a>
+            </td>
+            </tr>
             </tbody>
         </table>
     </div>
