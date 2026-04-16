@@ -25,7 +25,7 @@
             <a th:href="@{/clientes}">👥 Clientes</a>
             <a th:href="@{/productos}">🛍️ Productos</a>
             <a th:href="@{/ventas}">🛒 Ventas</a>
-            <a th:href="@{/detalle-ventas}">📊 Detalle de Ventas</a>
+            <a th:href="@{/detalles}">📊 Detalle de Ventas</a>
             <hr>
             <a th:href="@{/logout}" class="logout">🚪 Cerrar Sesión</a>
         </nav>
@@ -37,28 +37,6 @@
             <p>Bienvenido al sistema de gestión, <span th:text="${session.usuarioLogueado}"></span>.</p>
         </header>
 
-        <section class="grid-container">
-            <div class="card" onclick="window.location.href='/productos'">
-                <span class="card-icon">🛒</span>
-                <h4>Productos</h4>
-                <p>Agregar, editar y eliminar artículos del catálogo.</p>
-            </div>
-            <div class="card" onclick="window.location.href='/ventas'">
-                <span class="card-icon">📈</span>
-                <h4>Ventas</h4>
-                <p>Monitorea las transacciones del día en tiempo real.</p>
-            </div>
-            <div class="card">
-                <span class="card-icon">📂</span>
-                <h4>Categorías</h4>
-                <p>Organiza tus productos por tipo o marca.</p>
-            </div>
-            <div class="card" onclick="window.location.href='/usuarios'">
-                <span class="card-icon">⚙️</span>
-                <h4>Configuración</h4>
-                <p>Ajustes generales del perfil y del sistema.</p>
-            </div>
-        </section>
     </main>
 </div>
 </body>
