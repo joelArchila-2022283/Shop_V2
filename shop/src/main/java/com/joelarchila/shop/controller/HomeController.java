@@ -1,5 +1,6 @@
 package com.joelarchila.shop.controller;
 
+import com.joelarchila.shop.service.DetalleVentaService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,13 @@ import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
+
+    private final DetalleVentaService detalleVentaService;
+
+    // Constructor
+    public HomeController(DetalleVentaService detalleVentaService) {
+        this.detalleVentaService = detalleVentaService;
+    }
 
     private boolean isAuthenticated(HttpSession session) {
         return session.getAttribute("usuarioLogueado") != null;
@@ -31,23 +39,5 @@ public class HomeController {
             model.addAttribute("rolUsuario", rol);
             return "perfilCliente";
         }
-    }
-
-    @GetMapping("/ventas")
-    public String ventas(HttpSession session) {
-        if (!isAuthenticated(session)) return "redirect:/loginShop";
-
-        if (esAdmin(session)) {
-            return "ventas";
-        }
-        return "ventasCliente";
-    }
-
-    @GetMapping("/detalle-ventas")
-    public String detalleVentas(HttpSession session) {
-        if (!isAuthenticated(session) || !esAdmin(session)) {
-            return "redirect:/index";
-        }
-        return "detalleVentas";
     }
 }
