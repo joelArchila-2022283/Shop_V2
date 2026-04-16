@@ -25,11 +25,11 @@ public class Venta {
 
     @ManyToOne
     @JoinColumn(name = "Clientes_dpi_cliente")
-    private Cliente cliente; // Relación con entidad Cliente (singular)
+    private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "Usuarios_codigo_usuario")
-    private Usuario usuario; // Relación con entidad Usuario (singular)
+    private Usuario usuario;
 
     // Getters and Setters
     public Integer getCodigoVenta() { return codigoVenta; }
