@@ -2,46 +2,35 @@ package com.joelarchila.shop.service;
 
 import com.joelarchila.shop.entity.DetalleVenta;
 import com.joelarchila.shop.repository.DetalleVentaRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
 public class DetalleVentaServiceImplements implements DetalleVentaService {
 
-    private final DetalleVentaRepository repository;
+    private final DetalleVentaRepository repo;
 
-    public DetalleVentaServiceImplements(DetalleVentaRepository repository) {
-        this.repository = repository;
+    public DetalleVentaServiceImplements(DetalleVentaRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public List<DetalleVenta> getAllDetalles() {
-        return repository.findAll();
+    public List<DetalleVenta> getAllDetalleVentas() {
+        return repo.findAll();
     }
 
     @Override
-    public DetalleVenta getDetalleById(Integer id) {
-        DetalleVenta detalle = repository.findById(id).orElse(null);
-        if (detalle == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Detalle no encontrado");
-        }
-        return detalle;
+    public DetalleVenta getDetalleVentaById(Integer id) {
+        return repo.findById(id).orElse(null);
     }
 
     @Override
-    public DetalleVenta saveDetalle(DetalleVenta detalle) {
-        return repository.save(detalle);
+    public DetalleVenta saveDetalleVenta(DetalleVenta dv) {
+        return repo.save(dv);
     }
 
     @Override
-    public void deleteDetalle(Integer id) {
-        DetalleVenta detalle = repository.findById(id).orElse(null);
-        if (detalle != null) {
-            repository.delete(detalle);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el detalle para eliminar");
-        }
+    public void deleteDetalleVenta(Integer id) {
+        repo.deleteById(id);
     }
 }
