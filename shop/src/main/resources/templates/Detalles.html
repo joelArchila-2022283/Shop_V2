@@ -54,14 +54,15 @@
             <tbody>
             <tr th:each="d : ${detalles}">
                 <td class="td-id" th:text="'#' + ${d.id}"></td>
-                <td class="td-factura" th:text="'Factura #' + ${d.venta.codigoVenta}"></td>
-                <td th:text="${d.producto.nombreProducto}"></td>
+                <td class="td-factura" th:text="'Factura #' + ${d.venta?.codigoVenta}"></td>
+                <td th:text="${d.producto?.nombreProducto}"></td>
                 <td th:text="${d.cantidad}"></td>
                 <td class="td-precio"
                     th:text="'Q ' + ${#numbers.formatDecimal(d.precio, 1, 2)}"></td>
                 <td class="td-subtotal"
                     th:text="'Q ' + ${#numbers.formatDecimal(d.subtotal, 1, 2)}"></td>
                 <td>
+                    <a th:href="@{/detalles/editar/{id}(id=${d.id})}" class="btn-edit">Editar</a>
                     <a th:href="@{/detalles/eliminar/{id}(id=${d.id})}"
                        class="btn-eliminar"
                        onclick="return confirm('¿Eliminar este registro?')">Eliminar</a>
