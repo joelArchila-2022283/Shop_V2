@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "DetalleVenta")
+@Table(name = "detalleventa")
 public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +21,18 @@ public class DetalleVenta {
     private BigDecimal subtotal;
 
     @ManyToOne
-    @JoinColumn(name = "ventas_codigo_venta")
+    @JoinColumn(name = "Ventas_codigo_venta")
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "productos_codigo_producto")
+    @JoinColumn(name = "Productos_codigo_producto")
     private Producto producto;
 
     // Getters y Setters
+
+    public Integer getCodigoDetalleVenta() {
+        return id;
+    }
 
     public Integer getId() {
         return id;
