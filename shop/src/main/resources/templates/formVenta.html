@@ -2,59 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Venta - MiSistema</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Registro de Venta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/estiloFormVenta.css}">
 </head>
 <body>
 
-<main class="form-container">
+<header class="navbar">
+    <div class="logo">TIENDA</div>
+    <a th:href="@{/ventas}" class="btn-back">← Volver a Ventas</a>
+</header>
+
+<div class="page-wrapper">
     <div class="form-card">
-        <h2 th:text="${venta.codigoVenta != null} ? 'Editar Venta' : 'Nueva Venta'">Nueva Venta</h2>
+
+        <!-- Encabezado -->
+        <div class="form-header">
+            <div class="form-icon">🧾</div>
+            <h2 th:text="${venta.codigoVenta != null} ? 'Editar Venta' : 'Nueva Venta'">Nueva Venta</h2>
+            <p class="form-subtitle"
+               th:text="${venta.codigoVenta != null} ? 'Modificando Venta #' + ${venta.codigoVenta} : 'Completa los datos para registrar'">
+            </p>
+        </div>
 
         <form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
             <input type="hidden" th:field="*{codigoVenta}">
 
+            <!-- Fecha -->
             <div class="form-group">
-                <label>Fecha de Venta:</label>
-                <input type="date" th:field="*{fechaVenta}" required>
+                <label for="fechaVenta">Fecha de Venta</label>
+                <input type="date" id="fechaVenta" th:field="*{fechaVenta}" required>
             </div>
 
+            <!-- Cliente -->
             <div class="form-group">
-                <label>Cliente:</label>
-                <select th:field="*{cliente}" required>
-                    <option value="" disabled selected>Seleccione un cliente</option>
+                <label for="clienteId">Cliente</label>
+                <select name="clienteId" id="clienteId" required>
+                    <option value="" disabled selected>— Seleccione un cliente —</option>
                     <option th:each="c : ${clientes}"
                             th:value="${c.dpiCliente}"
-                            th:text="${c.nombre}"></option>
+                            th:text="${c.nombreCliente} + ' ' + ${c.apellidoCliente}"
+                            th:selected="${venta.cliente != null and venta.cliente.dpiCliente == c.dpiCliente}">
+                    </option>
                 </select>
             </div>
 
+            <!-- Usuario / Vendedor -->
             <div class="form-group">
-                <label>Usuario (Vendedor):</label>
-                <select th:field="*{usuario}" required>
-                    <option value="" disabled selected>Seleccione el vendedor</option>
+                <label for="usuarioId">Vendedor</label>
+                <select name="usuarioId" id="usuarioId" required>
+                    <option value="" disabled selected>— Seleccione el vendedor —</option>
                     <option th:each="u : ${usuarios}"
                             th:value="${u.codigoUsuario}"
-                            th:text="${u.nombreUsuario}"></option>
+                            th:text="${u.username}"
+                            th:selected="${venta.usuario != null and venta.usuario.codigoUsuario == u.codigoUsuario}">
+                    </option>
                 </select>
             </div>
 
+            <!-- Estado -->
             <div class="form-group">
-                <label>Estado:</label>
-                <select th:field="*{estado}">
+                <label for="estado">Estado</label>
+                <select id="estado" th:field="*{estado}">
                     <option value="1">Activa</option>
                     <option value="0">Anulada</option>
                 </select>
             </div>
 
+            <!-- Acciones -->
             <div class="form-actions">
-                <button type="submit" class="btn-save">Guardar Venta</button>
                 <a th:href="@{/ventas}" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-submit">Guardar Venta</button>
             </div>
         </form>
+
     </div>
-</main>
+</div>
 
 </body>
 </html>
