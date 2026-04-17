@@ -2,69 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Detalles </title>
+    <title>Detalle de Ventas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/estiloDetalleVentas.css}">
+
 </head>
 <body>
 
 <header class="navbar">
-    <div class="nav-left">
-        <div class="logo">TIENDA</div>
-    </div>
-    <div class="nav-right">
-        <a th:href="@{/index}" class="nav-link">Inicio</a>
-        <a th:href="@{/detalles/nuevo}" class="btn-add">+ Nuevo Registro</a>
+    <div class="logo">PANEL</div>
+    <div class="nav-links">
+        <a th:href="@{/index}" class="nav-link">← Inicio</a>
+        <a th:href="@{/detalles/nuevo}" class="btn-nuevo">+ Nuevo Registro</a>
     </div>
 </header>
 
-<main class="main-content">
-    <section class="glass-card full-width">
-        <div class="table-header">
-            <div>
-                <h2>Historial de Productos Vendidos</h2>
-            </div>
+<div class="container">
 
-            <form th:action="@{/detalles}" method="get" class="search-box">
-                <input type="text" name="buscar" th:value="${buscar}"
-                       placeholder="Buscar por factura o producto...">
-                <button type="submit">Buscar</button>
-            </form>
+    <!-- Encabezado -->
+    <div class="view-header">
+        <div style="display:flex; align-items:center; gap:15px;">
+            <h2 class="page-title">Historial de Ventas</h2>
+            <span class="badge-count"
+                  th:text="${detalles.size()} + ' registros'">0 registros</span>
         </div>
+        <form th:action="@{/detalles}" method="get" class="search-form">
+            <input type="text"
+                   name="buscar"
+                   th:value="${buscar}"
+                   placeholder="Buscar factura o producto..."
+                   class="search-input">
+            <button type="submit" class="btn-buscar">Buscar</button>
+        </form>
+    </div>
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Factura</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unit.</th>
-                    <th>Subtotal</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="d : ${detalles}">
-                    <td th:text="${d.id}" class="bold"></td>
-                    <td th:text="'#' + ${d.venta.codigoVenta}"></td>
-                    <td th:text="${d.producto.nombreProducto}"></td>
-                    <td th:text="${d.cantidad}"></td>
-                    <td th:text="'Q' + ${#numbers.formatDecimal(d.precio, 1, 2)}"></td>
-                    <td th:text="'Q' + ${#numbers.formatDecimal(d.subtotal, 1, 2)}" class="text-success"></td>
-                    <td>
-                        <a th:href="@{/detalles/eliminar/{id}(id=${d.id})}"
-                           class="btn-delete"
-                           onclick="return confirm('¿Seguro que deseas eliminar este item?')">Eliminar</a>
-                    </td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(detalles)}">
-                    <td colspan="7" class="empty-msg">No se encontraron registros que coincidan.</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-</main>
+    <!-- Tabla -->
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Factura</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unit.</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="d : ${detalles}">
+                <td class="td-id" th:text="'#' + ${d.id}"></td>
+                <td class="td-factura" th:text="'Factura #' + ${d.venta.codigoVenta}"></td>
+                <td th:text="${d.producto.nombreProducto}"></td>
+                <td th:text="${d.cantidad}"></td>
+                <td class="td-precio"
+                    th:text="'Q ' + ${#numbers.formatDecimal(d.precio, 1, 2)}"></td>
+                <td class="td-subtotal"
+                    th:text="'Q ' + ${#numbers.formatDecimal(d.subtotal, 1, 2)}"></td>
+                <td>
+                    <a th:href="@{/detalles/eliminar/{id}(id=${d.id})}"
+                       class="btn-eliminar"
+                       onclick="return confirm('¿Eliminar este registro?')">Eliminar</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(detalles)}" class="empty-row">
+                <td colspan="7">
+                    <span class="empty-icon">📋</span>
+                    No se encontraron registros.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 </body>
 </html>
