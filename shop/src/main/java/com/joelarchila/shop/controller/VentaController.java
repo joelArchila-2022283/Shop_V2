@@ -46,8 +46,13 @@ public class VentaController {
 
     // 3. GUARDAR
     @PostMapping("/guardar")
-    public String guardarVenta(@ModelAttribute("venta") Venta venta) {
-        // Si el total es nulo, le ponemos 0 por defecto para evitar errores
+    public String guardarVenta(@ModelAttribute("venta") Venta venta,
+                               @RequestParam("clienteId") Integer clienteId,
+                               @RequestParam("usuarioId") Integer usuarioId) {
+
+        venta.setCliente(clienteService.getClienteById(clienteId));
+        venta.setUsuario(usuarioService.getUsuarioById(usuarioId));
+
         if (venta.getTotal() == null) {
             venta.setTotal(java.math.BigDecimal.ZERO);
         }
