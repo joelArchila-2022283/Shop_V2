@@ -1,3 +1,6 @@
+/* ===========================
+   Base y Reseteo
+=========================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,92 +9,178 @@
 }
 
 body {
-    background: linear-gradient(135deg, #f4f7f6 0%, #d1dbd1 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #556B2F);
+    color: white;
 }
 
-.form-container {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
+/* ===========================
+   Navbar
+=========================== */
+.navbar {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: white;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: white;
+}
+
+/* ===========================
+   Wrapper y Card
+=========================== */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
 }
 
 .form-card {
-    background: white;
+    width: 100%;
+    max-width: 540px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
     padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-h2 {
-    color: #556B2F; /* Verde Oliva */
-    margin-bottom: 25px;
+/* ===========================
+   Encabezado
+=========================== */
+.form-header {
     text-align: center;
-    font-weight: 700;
+    margin-bottom: 35px;
 }
 
+.form-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.88rem;
+}
+
+/* ===========================
+   Campos
+=========================== */
 .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
     margin-bottom: 20px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 0.9rem;
+label {
+    font-size: 0.82rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.65);
 }
 
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+input[type="date"],
+select {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 11px 15px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
 }
 
-.form-group input:focus, .form-group select:focus {
-    border-color: #556B2F;
+input[type="date"]:focus,
+select:focus {
+    border-color: rgba(129, 199, 132, 0.5);
+    background: rgba(255, 255, 255, 0.1);
 }
 
+/* Fix color picker de fecha en Chrome */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+select option {
+    background: #2c3e50;
+    color: white;
+}
+
+/* ===========================
+   Acciones
+=========================== */
 .form-actions {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     margin-top: 30px;
-}
-
-.btn-save {
-    flex: 2;
-    background-color: #556B2F;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
-}
-
-.btn-save:hover {
-    background-color: #3d4d22;
 }
 
 .btn-cancel {
     flex: 1;
-    background-color: #e0e0e0;
-    color: #666;
     text-align: center;
     text-decoration: none;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    line-height: 1.2;
+    font-weight: 600;
+    transition: background 0.2s;
 }
 
 .btn-cancel:hover {
-    background-color: #d0d0d0;
+    background: rgba(255, 255, 255, 0.13);
+}
+
+.btn-submit {
+    flex: 2;
+    padding: 12px;
+    border-radius: 10px;
+    background: #556B2F;
+    border: none;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #6a8438;
 }
