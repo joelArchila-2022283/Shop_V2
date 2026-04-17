@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Detalle de Venta</title>
+    <title>Detalle de Venta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/estiloFormDetalleVentas.css}">
 </head>
 <body>
 
 <header class="navbar">
-    <div class="logo">PANEL</div>
+    <div class="logo">FORMULARIO</div>
     <a th:href="@{/detalles}" class="btn-back">← Volver al Historial</a>
 </header>
 
@@ -19,8 +19,11 @@
         <!-- Encabezado -->
         <div class="form-header">
             <div class="form-icon">🧾</div>
-            <h2>Agregar Producto a Venta</h2>
-            <p class="form-subtitle">Factura <span class="factura-badge" th:text="'#' + ${idVenta}"></span></p>
+            <h2 th:text="${detalle.id != null} ? 'Editar Detalle' : 'Agregar Producto a Venta'">Detalle</h2>
+            <p class="form-subtitle">
+                Factura <span class="factura-badge"
+                              th:text="${idVenta != null} ? '#' + ${idVenta} : 'Sin asignar'"></span>
+            </p>
         </div>
 
         <form th:action="@{/detalles/guardar}" th:object="${detalle}" method="post">
@@ -31,10 +34,11 @@
             <div class="form-group">
                 <label for="productoId">Producto</label>
                 <select name="productoId" id="productoId" required>
-                    <option value="" disabled selected>— Seleccione un producto —</option>
+                    <option value="" disabled>— Seleccione un producto —</option>
                     <option th:each="p : ${listaProductos}"
                             th:value="${p.codigoProducto}"
-                            th:text="${p.nombreProducto} + '  |  Q ' + ${p.precio}">
+                            th:text="${p.nombreProducto} + '  |  Q ' + ${p.precio}"
+                            th:selected="${detalle.producto != null and detalle.producto.codigoProducto == p.codigoProducto}">
                     </option>
                 </select>
             </div>
@@ -56,7 +60,10 @@
             <!-- Acciones -->
             <div class="form-actions">
                 <a th:href="@{/detalles}" class="btn-cancel">Cancelar</a>
-                <button type="submit" class="btn-submit">Guardar Registro</button>
+                <button type="submit" class="btn-submit"
+                        th:text="${detalle.id != null} ? 'Actualizar Registro' : 'Guardar Registro'">
+                    Guardar Registro
+                </button>
             </div>
         </form>
 
