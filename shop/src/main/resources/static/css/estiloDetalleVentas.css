@@ -56,6 +56,142 @@ body {
     font-size: 0.9rem;
 }
 
+.logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover { color: white; }
+
+        .btn-nuevo {
+            text-decoration: none;
+            background: #556B2F;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-nuevo:hover { background: #6a8438; }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-count {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.78rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            width: 220px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input::placeholder { color: rgba(255,255,255,0.4); }
+        .search-input:focus { border-color: rgba(255,255,255,0.35); }
+
+        .btn-buscar {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .btn-buscar:hover { background: rgba(255,255,255,0.18); }
+
+        tr:hover td { background: rgba(255,255,255,0.04); }
+
+        .td-id {
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        .td-factura {
+            font-weight: 600;
+            color: #81c784;
+        }
+
+        .td-precio { color: rgba(255,255,255,0.8); }
+
+        .td-subtotal {
+            font-weight: 700;
+            color: #81c784;
+        }
+
+        .btn-eliminar {
+            text-decoration: none;
+            background: rgba(220, 80, 80, 0.15);
+            border: 1px solid rgba(220, 80, 80, 0.3);
+            color: #ff8a80;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-eliminar:hover {
+            background: rgba(220, 80, 80, 0.3);
+            border-color: rgba(220, 80, 80, 0.6);
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 50px 15px;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.9rem;
+        }
+
+        .empty-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
 /* Sección de Cliente */
 .cliente-resumen {
     margin-bottom: 25px;
