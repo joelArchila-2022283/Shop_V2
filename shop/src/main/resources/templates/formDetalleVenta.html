@@ -2,34 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${detalle.codigoDetalleVenta != null} ? 'Editar Detalle' : 'Nuevo Detalle'">Detalle de Venta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Nuevo Detalle de Venta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/estiloFormDetalleVentas.css}">
 </head>
 <body>
 
-<div class="form-container">
-    <h2 th:text="${detalle.codigoDetalleVenta != null} ? 'Editar Producto en Venta' : 'Agregar Producto a Venta'">Detalle</h2>
-    <p style="text-align: center; color: #666; margin-bottom: 20px;">Factura #<span th:text="${idVenta}"></span></p>
-    <hr class="separator">
+<header class="navbar">
+    <div class="logo">PANEL</div>
+    <a th:href="@{/detalles}" class="btn-back">← Volver al Historial</a>
+</header>
 
-    <form th:action="@{/detalles/guardar}" th:object="${detalle}" method="post">
-        <input type="hidden" th:field="*{codigoDetalleVenta}">
+<div class="page-wrapper">
+    <div class="form-card">
 
-        <input type="hidden" name="ventaId" th:value="${idVenta}">
-
-        <div class="form-group">
-            <label>Seleccionar Producto</label>
-            <select name="productoId" required>
-                <option value="" disabled selected>--- Seleccione un producto ---</option>
-                <option th:each="p : ${listaProductos}"
-                        th:value="${p.codigoProducto}"
-                        th:text="${p.nombre_producto} + ' - Q' + ${p.precio}">
-                </option>
-            </select>
+        <!-- Encabezado -->
+        <div class="form-header">
+            <div class="form-icon">🧾</div>
+            <h2>Agregar Producto a Venta</h2>
+            <p class="form-subtitle">Factura <span class="factura-badge" th:text="'#' + ${idVenta}"></span></p>
         </div>
 
-    </form>
+        <form th:action="@{/detalles/guardar}" th:object="${detalle}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="ventaId" th:value="${idVenta}">
+
+            <!-- Producto -->
+            <div class="form-group">
+                <label for="productoId">Producto</label>
+                <select name="productoId" id="productoId" required>
+                    <option value="" disabled selected>— Seleccione un producto —</option>
+                    <option th:each="p : ${listaProductos}"
+                            th:value="${p.codigoProducto}"
+                            th:text="${p.nombreProducto} + '  |  Q ' + ${p.precio}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Cantidad y Precio -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" id="cantidad" th:field="*{cantidad}"
+                           min="1" placeholder="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio Unitario (Q)</label>
+                    <input type="number" id="precio" th:field="*{precio}"
+                           step="0.01" min="0" placeholder="0.00" required>
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="form-actions">
+                <a th:href="@{/detalles}" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-submit">Guardar Registro</button>
+            </div>
+        </form>
+
+    </div>
 </div>
 
 </body>
