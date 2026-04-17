@@ -57,13 +57,14 @@ public class DetalleVentaController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute DetalleVenta detalleVenta,
-                          @RequestParam("ventaId") Integer ventaId,
+                          @RequestParam(value = "ventaId", required = false) Integer ventaId,
                           @RequestParam("productoId") Integer productoId) {
 
-        detalleVenta.setVenta(ventaService.getVentaById(ventaId));
+        if (ventaId != null) {
+            detalleVenta.setVenta(ventaService.getVentaById(ventaId));
+        }
         detalleVenta.setProducto(productoService.getProductoById(productoId));
 
-        // Cálculo del subtotal antes de guardar
         if (detalleVenta.getCantidad() != null && detalleVenta.getPrecio() != null) {
             BigDecimal cantidad = new BigDecimal(detalleVenta.getCantidad());
             detalleVenta.setSubtotal(detalleVenta.getPrecio().multiply(cantidad));
@@ -71,6 +72,15 @@ public class DetalleVentaController {
 
         detalleVentaService.saveDetalleVenta(detalleVenta);
         return "redirect:/detalles";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Integer id, Model model) {
+        DetalleVenta detalle = detalleVentaService.getDetalleVentaById(id);
+        model.addAttribute("detalle", detalle);
+        model.addAttribute("idVenta", detalle.getVenta() != null ? detalle.getVenta().getCodigoVenta() : null);
+        model.addAttribute("listaProductos", productoService.getAllProductos());
+        return "formDetalleVenta";
     }
 
     @GetMapping("/eliminar/{id}")
