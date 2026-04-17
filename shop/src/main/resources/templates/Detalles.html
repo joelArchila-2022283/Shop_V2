@@ -12,7 +12,7 @@
         <div class="logo">TIENDA</div>
     </div>
     <div class="nav-right">
-        <a th:href="@{/home}" class="nav-link">Inicio</a>
+        <a th:href="@{/index}" class="nav-link">Inicio</a>
         <a th:href="@{/detalles/nuevo}" class="btn-add">+ Nuevo Registro</a>
     </div>
 </header>
@@ -46,14 +46,14 @@
                 </thead>
                 <tbody>
                 <tr th:each="d : ${detalles}">
-                    <td th:text="${d.codigoDetalleVenta}" class="bold"></td>
+                    <td th:text="${d.id}" class="bold"></td>
                     <td th:text="'#' + ${d.venta.codigoVenta}"></td>
                     <td th:text="${d.producto.nombreProducto}"></td>
                     <td th:text="${d.cantidad}"></td>
                     <td th:text="'Q' + ${#numbers.formatDecimal(d.precio, 1, 2)}"></td>
                     <td th:text="'Q' + ${#numbers.formatDecimal(d.subtotal, 1, 2)}" class="text-success"></td>
                     <td>
-                        <a th:href="@{/detalles/eliminar/{id}(id=${d.codigoDetalleVenta})}"
+                        <a th:href="@{/detalles/eliminar/{id}(id=${d.id})}"
                            class="btn-delete"
                            onclick="return confirm('¿Seguro que deseas eliminar este item?')">Eliminar</a>
                     </td>
