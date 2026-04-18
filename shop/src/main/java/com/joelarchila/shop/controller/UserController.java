@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     @Autowired
-    private LoginService loginService; // Inyectamos tu lógica de DB
+    private LoginService loginService;
 
     @GetMapping("/")
     public String inicio() {
@@ -59,12 +59,10 @@ public class UserController {
         String username = (String) session.getAttribute("usuarioLogueado");
         String rol = (String) session.getAttribute("rol");
 
-        // Si no hay sesión, al login
         if (username == null) {
             return "redirect:/loginShop";
         }
 
-        // Decisión de Vista
         if ("ADMIN".equals(rol)) {
             return "index"; // Admin
         } else {
