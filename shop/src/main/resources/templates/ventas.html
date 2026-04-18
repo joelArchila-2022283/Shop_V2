@@ -42,7 +42,7 @@
                 <td th:text="${v.cliente != null ? v.cliente.nombreCliente : 'S/N'}">Cliente</td>
                 <td class="total-amount" th:text="'Q ' + ${v.total}">Q 0.00</td>
                 <td>Efectivo</td> <td class="actions-cell">
-                <a th:href="@{/detalle-ventas/lista/{id}(id=${v.codigoVenta})}" class="action-icon">👁️</a>
+                <a th:href="@{/ventas/editar/{id}(id=${v.codigoVenta})}" class="action-icon">✏️</a>
                 <a th:href="@{/ventas/eliminar/{id}(id=${v.codigoVenta})}"
                    class="action-icon"
                    onclick="return confirm('¿Eliminar esta venta?')">🗑️</a>
